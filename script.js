@@ -4,13 +4,15 @@ fetch(SHEET_URL)
   .then((response) => response.json())
   .then((data) => {
     const container = document.getElementById('berita-container');
+    container.innerHTML = ""; // kosongkan sebelum isi
+
     data.forEach((item) => {
       if (item.Type === 'utama') {
         const card = document.createElement('div');
         card.className = 'berita-card';
         card.innerHTML = `
           <a href="berita.html?slug=${item.Slug}">
-            <img src="${item.Gambar}" alt="${item.Judul}" style="width:100%; max-height:200px; object-fit:cover;" />
+            <img src="${item.Gambar}" alt="${item.Judul}" />
             <h2>${item.Judul}</h2>
             <p>${item.Label} - ${item.Tanggal}</p>
           </a>
@@ -21,4 +23,5 @@ fetch(SHEET_URL)
   })
   .catch((error) => {
     console.error('Gagal mengambil data:', error);
+    document.getElementById('berita-container').innerText = 'Gagal memuat berita.';
   });
