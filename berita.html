@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berita - Sarjana Web</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Sarjana Web</h1>
+    <nav>
+      <a href="index.html">Beranda</a>
+    </nav>
+  </header>
+
+  <main>
+    <article id="konten-berita"></article>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sarjana Web</p>
+  </footer>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const slug = urlParams.get('slug');
+
+    fetch('https://opensheet.elk.sh/1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU/berita')
+      .then(res => res.json())
+      .then(data => {
+        const berita = data.find(item => item.Slug === slug);
+        if (berita) {
+          document.getElementById('konten-berita').innerHTML = `
+            <h2>${berita.Judul}</h2>
+            <img src="${berita.Gambar}" alt="${berita.Judul}">
+            <p><em>${berita['Tgl/Jam']}</em></p>
+            <div>${berita.Body}</div>
+          `;
+        } else {
+          document.getElementById('konten-berita').innerHTML = '<p>Berita tidak ditemukan.</p>';
+        }
+      });
+  </script>
+</body>
+</html>
