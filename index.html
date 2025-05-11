@@ -1,65 +1,69 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Berita Hari Ini - Sarjana.web.id</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="site-title">Memuat...</title>
+  <meta name="description" id="site-description" content="Deskripsi situs">
+  <link rel="icon" id="favicon" href="">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background-color: #f4f4f4;
+      background-color: #fdfdfd;
+      color: #1c293b;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
     }
-    header {
-      background-color: #005f5f;
+    header, footer {
+      padding: 1rem;
+      background-color: #213758;
       color: white;
-      padding: 15px;
       text-align: center;
     }
-    h1 { margin: 0; font-size: 24px; }
-    .container {
-      padding: 20px;
+    nav {
+      background-color: #fdfdfd;
+      padding: 0.5rem;
+      text-align: center;
     }
-    .berita-card {
-      background: white;
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .berita-card img {
-      max-width: 100%;
-      border-radius: 5px;
-    }
-    .berita-card h2 {
-      font-size: 18px;
-      margin-top: 10px;
-    }
-    .berita-card p {
-      color: gray;
-      font-size: 14px;
-    }
-    a {
+    nav a {
+      margin: 0 0.5rem;
       text-decoration: none;
-      color: inherit;
+      color: #000;
+    }
+    .container {
+      padding: 1rem;
+    }
+    .news-card {
+      background: white;
+      padding: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
+    .news-card img {
+      max-width: 100%;
+      height: auto;
+    }
+    .read-more {
+      color: #313078;
     }
   </style>
 </head>
 <body>
-<body>
-  <!-- Header & Logo -->
-  <header style="padding: 10px;">
-    <img id="logo-website" src="" alt="Logo Website" style="height: 40px;">
+  <header>
+    <img id="logo" src="" alt="Logo" style="height: 40px;">
+    <h1 id="logo-text">Memuat...</h1>
   </header>
 
-  <!-- Konten Utama -->
-  <main>
-    <h1>Selamat datang di Website</h1>
-    <p>Konten berita akan muncul di sini...</p>
-  </main>
+  <nav id="menu-nav"></nav>
 
-  <!-- Footer -->
-  <footer style="padding: 10px; text-align: center;"></footer>
-</body>
+  <div class="container" id="news-container">
+    <p>Memuat berita...</p>
+  </div>
+
+  <footer>
+    <p id="copyright">© 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
