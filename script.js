@@ -1,27 +1,32 @@
-const SHEET_URL = 'https://opensheet.elk.sh/1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU/LIVE%20WEBSITE';
+fetch("https://opensheet.elk.sh/1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU/CONFIG")
+  .then((res) => res.json())
+  .then((config) => {
+    // Ambil nilai dari kolom WEBSITE berdasarkan FUNGSI
+    const getValue = (key) => {
+      const item = config.find(row => row.FUNGSI === key);
+      return item ? item.WEBSITE : null;
+    };
 
-fetch(SHEET_URL)
-  .then((response) => response.json())
-  .then((data) => {
-    const container = document.getElementById('berita-container');
-    container.innerHTML = ""; // kosongkan sebelum isi
+    const judul = getValue("judul_website") || "Judul Website";
+    const warna = getValue("warna_utama") || "#005f5f";
+    const deskripsi = getValue("deskripsi_situs") || "";
 
-    data.forEach((item) => {
-      if (item.Type === 'utama') {
-        const card = document.createElement('div');
-        card.className = 'berita-card';
-        card.innerHTML = `
-          <a href="berita.html?slug=${item.Slug}">
-            <img src="${item.Gambar}" alt="${item.Judul}" />
-            <h2>${item.Judul}</h2>
-            <p>${item.Label} - ${item.Tanggal}</p>
-          </a>
-        `;
-        container.appendChild(card);
+    // Terapkan ke tampilan HTML
+    const header = document.querySelector("header");
+    if (header) {
+      header.querySelector("h1").innerText = judul;
+      header.style.backgroundColor = warna;
+
+      if (deskripsi) {
+        const desc = document.createElement("p");
+        desc.innerText = deskripsi;
+        desc.style.margin = "5px 0 0";
+        desc.style.fontSize = "14px";
+        desc.style.color = "#ddd";
+        header.appendChild(desc);
       }
-    });
+    }
   })
-  .catch((error) => {
-    console.error('Gagal mengambil data:', error);
-    document.getElementById('berita-container').innerText = 'Gagal memuat berita.';
+  .catch(err => {
+    console.error("Gagal membaca konfigurasi CONFIG:", err);
   });
