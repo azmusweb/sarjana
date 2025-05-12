@@ -1,93 +1,80 @@
-/* Reset dan umum */
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
-  font-family: sans-serif;
-  background: #fff;
+  padding: 0;
 }
 
 header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background: #009688;
+  align-items: center;
+  background-color: #008753;
   padding: 10px 20px;
-  flex-wrap: wrap;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  color: white;
 }
 
-.logo-container img {
-  height: 50px;
-}
-
-/* Menu utama */
-#nav-menu {
+.menu-container {
   display: flex;
   gap: 15px;
-  flex-wrap: wrap;
-  align-items: center;
 }
 
 .menu-main {
   color: white;
-  padding: 10px 15px;
   text-decoration: none;
-  font-weight: bold;
   position: relative;
-  transition: all 0.3s ease;
+  padding: 10px;
 }
 
-.menu-main:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-}
-
-/* Dropdown 3D */
 .dropdown3D {
   position: relative;
-  display: inline-block;
 }
 
 .dropdown-content3D {
   display: none;
   position: absolute;
   background-color: white;
-  min-width: 180px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-  z-index: 10;
-  transform: rotateX(-10deg);
+  min-width: 160px;
+  z-index: 1;
+  top: 100%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transform: perspective(600px) rotateX(-10deg);
   transform-origin: top;
-  transition: transform 0.3s ease;
-  border-radius: 6px;
 }
 
 .dropdown-content3D a {
-  color: #333;
-  padding: 12px 16px;
+  color: black;
+  padding: 10px 16px;
   text-decoration: none;
   display: block;
-  border-bottom: 1px solid #eee;
-}
-
-.dropdown-content3D a:hover {
-  background-color: #f1f1f1;
 }
 
 .dropdown3D:hover .dropdown-content3D {
   display: block;
-  transform: rotateX(0);
-}
-
-/* Footer */
-footer {
-  background: #222;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
 }
 
 .sosmed-icons a {
+  margin-left: 10px;
   color: white;
-  margin: 0 10px;
+  text-decoration: none;
   font-size: 20px;
+}
+
+#main-content {
+  padding: 20px;
+}
+
+#berita-list article {
+  margin-bottom: 20px;
+}
+
+#berita-list img {
+  max-width: 100%;
+  height: auto;
+}
+
+footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
 }
