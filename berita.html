@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detail Berita</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <div class="logo">
-      <a href="/"><img src="" alt="Logo" id="logo-img"/></a>
-      <h1 id="logo-text"></h1>
+    <img id="logo" src="" alt="Logo" height="50" />
+    <nav id="nav-menu" class="menu-container"></nav>
+    <div class="sosmed-icons">
+      <a id="fb" href="#" target="_blank">📘</a>
+      <a id="tw" href="#" target="_blank">🐦</a>
+      <a id="yt" href="#" target="_blank">▶️</a>
+      <a id="ig" href="#" target="_blank">📸</a>
     </div>
-    <nav>
-      <ul id="menu-navigasi"></ul>
-    </nav>
   </header>
 
-  <main>
-    <article id="konten-berita"></article>
-    <aside class="sidebar" id="sidebar-kanan"></aside>
+  <main id="main-content">
+    <article id="detail-berita"></article>
   </main>
 
   <footer>
-    <div class="footer-content">
-      <p id="footer-text"></p>
-      <div id="sosial-media"></div>
-    </div>
+    <p>&copy; 2025 - Website Berita Anda</p>
   </footer>
+
+  <script src="script.js"></script>
+  <script>
+    async function loadBeritaDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('slug');
+      const res = await fetch(`https://opensheet.elk.sh/${sheetId}/Live Website`);
+      const data = await res.json();
+      const berita = data.find(item => item['Slug'] === slug);
+
+      if (berita) {
+        document.title = berita['Judul'];
+        document.getElementById('detail-berita').innerHTML = `
+          <h1>${berita['Judul']}</h1>
+          <img src="${berita['Gambar']}" alt="${berita['Judul']}">
+          <p>${berita['Body']}</p>
+        `;
+      } else {
+        document.getElementById('detail-berita').innerHTML = '<p>Berita tidak ditemukan.</p>';
+      }
+    }
+
+    loadBeritaDetail();
+  </script>
 </body>
 </html>
