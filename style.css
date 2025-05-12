@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fdfdfd;
+  color: #1c293b;
+  margin: 0;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2b2b60;
+  color: white;
+  padding: 10px 20px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+nav a {
+  color: #000;
+  margin: 0 10px;
+  text-decoration: none;
+}
+main {
+  display: flex;
+  padding: 20px;
+}
+.konten-utama {
+  flex: 3;
+  padding-right: 20px;
+}
+.sidebar-kanan {
+  flex: 1;
+}
+.sidebar-kanan .sosmed-icon img {
+  height: 24px;
+  margin-right: 10px;
+}
+footer {
+  text-align: center;
+  background: #213758;
+  color: white;
+  padding: 15px;
+}
