@@ -1,48 +1,72 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #fdfdfd;
-  color: #1c293b;
   margin: 0;
+  padding: 0;
 }
+
 header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  background: #2b2b60;
-  color: white;
+  background-color: #009688;
   padding: 10px 20px;
+  flex-wrap: wrap;
 }
-.logo {
+
+.logo-container img {
+  height: 50px;
+}
+
+.menu-container {
   display: flex;
-  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
-.logo img {
-  height: 40px;
-  margin-right: 10px;
-}
-nav a {
-  color: #000;
-  margin: 0 10px;
+
+.menu-container a,
+.dropbtn {
+  color: white;
   text-decoration: none;
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
 }
-main {
-  display: flex;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
   padding: 20px;
 }
-.konten-utama {
-  flex: 3;
-  padding-right: 20px;
-}
-.sidebar-kanan {
-  flex: 1;
-}
-.sidebar-kanan .sosmed-icon img {
-  height: 24px;
-  margin-right: 10px;
-}
-footer {
-  text-align: center;
-  background: #213758;
+
+.sosmed-icons a {
   color: white;
-  padding: 15px;
+  margin: 0 10px;
+  font-size: 20px;
 }
