@@ -1,68 +1,89 @@
+/* Reset dan umum */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: sans-serif;
+  background: #fff;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #009688;
+  background: #009688;
   padding: 10px 20px;
   flex-wrap: wrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .logo-container img {
   height: 50px;
 }
 
-.menu-container {
+/* Menu utama */
+#nav-menu {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
-.menu-container a,
-.dropbtn {
+.menu-main {
   color: white;
+  padding: 10px 15px;
   text-decoration: none;
-  padding: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
   font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.dropdown {
+.menu-main:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+/* Dropdown 3D */
+.dropdown3D {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content3D {
   display: none;
   position: absolute;
   background-color: white;
-  min-width: 160px;
-  z-index: 1;
+  min-width: 180px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  z-index: 10;
+  transform: rotateX(-10deg);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+  border-radius: 6px;
 }
 
-.dropdown-content a {
+.dropdown-content3D a {
   color: #333;
-  padding: 10px;
+  padding: 12px 16px;
   text-decoration: none;
   display: block;
+  border-bottom: 1px solid #eee;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown-content3D a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown3D:hover .dropdown-content3D {
   display: block;
+  transform: rotateX(0);
 }
 
+/* Footer */
 footer {
-  background-color: #222;
+  background: #222;
   color: white;
   text-align: center;
   padding: 20px;
+  margin-top: 40px;
 }
 
 .sosmed-icons a {
