@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Pengisian Postingan Berita</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Form Pengisian Postingan Berita</h1>
+  </header>
+
+  <main>
+    <form id="posting-form">
+      <label for="judul">Judul Berita</label>
+      <input type="text" id="judul" name="judul" required />
+
+      <label for="label">Label Berita</label>
+      <input type="text" id="label" name="label" required />
+
+      <label for="gambar">URL Gambar</label>
+      <input type="url" id="gambar" name="gambar" required />
+
+      <label for="slug">Slug (URL Path)</label>
+      <input type="text" id="slug" name="slug" required />
+
+      <label for="meta-deskripsi">Meta Deskripsi</label>
+      <textarea id="meta-deskripsi" name="meta-deskripsi" rows="4" required></textarea>
+
+      <label for="body">Isi Berita</label>
+      <textarea id="body" name="body" rows="8" required></textarea>
+
+      <label for="type">Tipe Berita</label>
+      <select id="type" name="type">
+        <option value="headline">Headline</option>
+        <option value="artikel">Artikel</option>
+        <option value="berita-terbaru">Berita Terbaru</option>
+      </select>
+
+      <button type="submit">Kirim Postingan</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 - Website Berita Anda</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
