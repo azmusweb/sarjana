@@ -1,48 +1,79 @@
-const spreadsheetID = '128bSvr13vEVS2jKM_f7rFJd7WYit59FwSjKGAe3zCeE';
-const sheetName = 'Live Website';
-const sheetConfig = 'CONFIG';
+const sheetId = '1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU';
+const configURL = `https://opensheet.elk.sh/${sheetId}/CONFIG`;
 
-async function ambilData(sheet) {
-  const url = `https://opensheet.elk.sh/${spreadsheetID}/${sheet}`;
-  const res = await fetch(url);
-  return await res.json();
+async function loadConfig() {
+  const res = await fetch(configURL);
+  const data = await res.json();
+
+  let menuList = [];
+  let subMenuMap = {};
+  let logoUrl = '';
+  let socialLinks = {
+    facebook: '#',
+    twitter: '#',
+    youtube: '#',
+    instagram: '#'
+  };
+
+  data.forEach(row => {
+    switch (row.FUNGSI) {
+      case 'menu':
+        menuList = row.WEBSITE.split(',').map(m => m.trim());
+        break;
+      case 'sub-menu':
+        row.WEBSITE.split(',').forEach(item => {
+          const [parent, child] = item.split('>').map(i => i.trim());
+          if (!subMenuMap[parent]) subMenuMap[parent] = [];
+          subMenuMap[parent].push(child);
+        });
+        break;
+      case 'logo':
+        logoUrl = row.WEBSITE;
+        break;
+      case 'facebook':
+        socialLinks.facebook = row.WEBSITE;
+        break;
+      case 'twitter':
+        socialLinks.twitter = row.WEBSITE;
+        break;
+      case 'youtube':
+        socialLinks.youtube = row.WEBSITE;
+        break;
+      case 'instagram':
+        socialLinks.instagram = row.WEBSITE;
+        break;
+    }
+  });
+
+  // Pasang logo
+  document.getElementById('logo').src = logoUrl;
+
+  // Buat menu dinamis
+  const nav = document.getElementById('nav-menu');
+  menuList.forEach(menu => {
+    if (subMenuMap[menu]) {
+      const dropdown = document.createElement('div');
+      dropdown.className = 'dropdown';
+      dropdown.innerHTML = `
+        <button class="dropbtn">${menu}</button>
+        <div class="dropdown-content">
+          ${subMenuMap[menu].map(sub => `<a href="#">${sub}</a>`).join('')}
+        </div>
+      `;
+      nav.appendChild(dropdown);
+    } else {
+      const link = document.createElement('a');
+      link.href = "#";
+      link.textContent = menu;
+      nav.appendChild(link);
+    }
+  });
+
+  // Pasang link medsos
+  document.getElementById('fb').href = socialLinks.facebook;
+  document.getElementById('tw').href = socialLinks.twitter;
+  document.getElementById('yt').href = socialLinks.youtube;
+  document.getElementById('ig').href = socialLinks.instagram;
 }
 
-function buatMenu(navigasiString) {
-  const menuContainer = document.getElementById('menu-navigasi');
-  const items = navigasiString.split(',');
-  menuContainer.innerHTML = items.map(item => {
-    const [label, link] = item.split('|').map(el => el.trim());
-    return `<a href="${link}">${label}</a>`;
-  }).join('');
-}
-
-function buatBerita(beritaList) {
-  const konten = document.getElementById('daftar-berita');
-  konten.innerHTML = beritaList.map(berita => `
-    <article>
-      <h2>${berita['Judul']}</h2>
-      <img src="${berita['Gambar']}" alt="${berita['Judul']}" style="max-width:100%;" />
-      <p>${berita['Body'].substring(0, 150)}...</p>
-      <a href="${berita['Slug + PermaLink']}">Selengkapnya</a>
-    </article>
-  `).join('');
-}
-
-function tampilkanTicker(beritaList) {
-  const ticker = document.getElementById('bilah-berita');
-  const judulList = beritaList.slice(0, 10).map(b => b['Judul']).join(' | ');
-  ticker.innerText = judulList;
-}
-
-async function mulai() {
-  const config = await ambilData(sheetConfig);
-  const pengaturan = {};
-  config.forEach(row => pengaturan[row['FUNGSI']] = row['WEBSITE'] || row['BLOG']);
-  if (pengaturan['menu-navigasi']) buatMenu(pengaturan['menu-navigasi']);
-  const berita = await ambilData(sheetName);
-  buatBerita(berita);
-  tampilkanTicker(berita);
-}
-
-document.addEventListener("DOMContentLoaded", mulai);
+loadConfig();
