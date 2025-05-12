@@ -1,4 +1,4 @@
-const sheetId = '1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU';
+const sheetId = '1oMHeKOF2_D6deuV8T1l10_GB0wgsPGLV7WrPcJ6Qxww';
 const configURL = `https://opensheet.elk.sh/${sheetId}/CONFIG`;
 const menuURL = `https://opensheet.elk.sh/${sheetId}/MENU`;
 
@@ -11,30 +11,25 @@ async function loadConfig() {
   const configData = await configRes.json();
   const menuData = await menuRes.json();
 
-  // Konfigurasi umum
-  const configMap = {};
-  configData.forEach(row => {
-    configMap[row.FUNGSI] = row.WEBSITE;
-  });
-
   // Pasang logo
+  const configMap = {};
+  configData.forEach(item => {
+    configMap[item.FUNGSI] = item.WEBSITE;
+  });
   document.getElementById('logo').src = configMap['logo'];
+  document.getElementById('fb').href = configMap['facebook'];
+  document.getElementById('tw').href = configMap['twitter'];
+  document.getElementById('yt').href = configMap['youtube'];
+  document.getElementById('ig').href = configMap['instagram'];
 
-  // Media sosial
-  document.getElementById('fb').href = configMap['facebook'] || '#';
-  document.getElementById('tw').href = configMap['twitter'] || '#';
-  document.getElementById('yt').href = configMap['youtube'] || '#';
-  document.getElementById('ig').href = configMap['instagram'] || '#';
-
-  // Bangun struktur menu
+  // Buat menu & sub-menu
   const menuMap = {};
   const parentMenus = [];
 
-  menuData.forEach(row => {
-    const name = row['Nama Menu'].trim();
-    const slug = row['Slug'].trim();
-    const parent = row['Parent']?.trim();
-
+  menuData.forEach(item => {
+    const name = item['Nama Menu'].trim();
+    const slug = item['Slug'].trim();
+    const parent = item['Parent']?.trim();
     if (!parent) {
       parentMenus.push({ name, slug });
     } else {
@@ -43,24 +38,23 @@ async function loadConfig() {
     }
   });
 
-  // Render menu
   const nav = document.getElementById('nav-menu');
   parentMenus.forEach(menu => {
     if (menuMap[menu.name]) {
-      const dropdown = document.createElement('div');
-      dropdown.className = 'dropdown3D';
-      dropdown.innerHTML = `
+      const wrapper = document.createElement('div');
+      wrapper.className = 'dropdown3D';
+      wrapper.innerHTML = `
         <a class="menu-main" href="${menu.slug}">${menu.name}</a>
         <div class="dropdown-content3D">
           ${menuMap[menu.name].map(sub => `<a href="${sub.slug}">${sub.name}</a>`).join('')}
         </div>
       `;
-      nav.appendChild(dropdown);
+      nav.appendChild(wrapper);
     } else {
       const link = document.createElement('a');
       link.href = menu.slug;
-      link.textContent = menu.name;
       link.className = 'menu-main';
+      link.textContent = menu.name;
       nav.appendChild(link);
     }
   });
