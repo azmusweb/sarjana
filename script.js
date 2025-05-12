@@ -1,8 +1,8 @@
-const SPREADSHEET_ID = '128bSvr13vEVS2jKM_f7rFJd7WYit59FwSjKGAe3zCeE';
+const SPREADSHEET_ID = '1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU';
 const CONFIG_TAB = 'CONFIG';
 const BERITA_TAB = 'Live Website';
 
-const API_URL = `https://opensheet.elk.sh/${SPREADSHEET_ID}/`;
+const API_URL = `https://opensheet.elk.sh/${1XT4Sd6_VbjaliOGy3hGiKPoePusGrHj6w0b7U5ZKABU}/`;
 
 async function fetchSheetData(tab) {
   const res = await fetch(API_URL + tab);
