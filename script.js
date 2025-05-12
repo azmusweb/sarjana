@@ -1,28 +1,29 @@
 const sheetId = '1oMHeKOF2_D6deuV8T1l10_GB0wgsPGLV7WrPcJ6Qxww';
 const configURL = `https://opensheet.elk.sh/${sheetId}/CONFIG`;
 const menuURL = `https://opensheet.elk.sh/${sheetId}/MENU`;
+const beritaURL = `https://opensheet.elk.sh/${sheetId}/Live Website`;
 
 async function loadConfig() {
-  const [configRes, menuRes] = await Promise.all([
+  const [configRes, menuRes, beritaRes] = await Promise.all([
     fetch(configURL),
-    fetch(menuURL)
+    fetch(menuURL),
+    fetch(beritaURL)
   ]);
 
   const configData = await configRes.json();
   const menuData = await menuRes.json();
+  const beritaData = await beritaRes.json();
 
-  // Pasang logo
+  // Logo & Media Sosial
   const configMap = {};
-  configData.forEach(item => {
-    configMap[item.FUNGSI] = item.WEBSITE;
-  });
+  configData.forEach(item => configMap[item.FUNGSI] = item.WEBSITE);
   document.getElementById('logo').src = configMap['logo'];
   document.getElementById('fb').href = configMap['facebook'];
   document.getElementById('tw').href = configMap['twitter'];
   document.getElementById('yt').href = configMap['youtube'];
   document.getElementById('ig').href = configMap['instagram'];
 
-  // Buat menu & sub-menu
+  // Menu dan Sub-menu
   const menuMap = {};
   const parentMenus = [];
 
@@ -58,6 +59,22 @@ async function loadConfig() {
       nav.appendChild(link);
     }
   });
+
+  // Tampilkan berita di halaman utama
+  const beritaContainer = document.getElementById('berita-list');
+  if (beritaContainer) {
+    beritaData.forEach(item => {
+      if (item['Type'].toLowerCase() === 'headline') {
+        const article = document.createElement('article');
+        article.innerHTML = `
+          <h2><a href="berita.html?slug=${item['Slug']}">${item['Judul']}</a></h2>
+          <img src="${item['Gambar']}" alt="${item['Judul']}">
+          <p>${item['Meta Deskripsi']}</p>
+        `;
+        beritaContainer.appendChild(article);
+      }
+    });
+  }
 }
 
 loadConfig();
